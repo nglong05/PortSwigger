@@ -19,3 +19,14 @@
 | Practitioner     | Blind SQL injection with out-of-band interaction                                              | Not Solved   |
 | Practitioner     | Blind SQL injection with out-of-band data exfiltration                                        | Not Solved   |
 | Practitioner     | SQL injection with filter bypass via XML encoding                                             | Not Solved   |
+
+## Path Traversal
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | File path traversal, simple case                                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-simple-case)       |
+| Practitioner     | File path traversal, traversal sequences blocked with absolute path bypass                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-traversal-sequences-blocked-with-absolute-path-bypass)       |
+| Practitioner     | File path traversal, traversal sequences stripped non-recursively                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-traversal-sequences-stripped-non-recursively)       |
+| Practitioner     | File path traversal, traversal sequences stripped with superfluous URL-decode                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-traversal-sequences-stripped-with-superfluous-url-decode)       |
+| Practitioner     | File path traversal, validation of start of path                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-validation-of-start-of-path)       |
+| Practitioner     | File path traversal, validation of file extension with null byte bypass                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-validation-of-file-extension-with-null-byte-bypass)       |
