@@ -30,3 +30,15 @@
 | Practitioner     | File path traversal, traversal sequences stripped with superfluous URL-decode                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-traversal-sequences-stripped-with-superfluous-url-decode)       |
 | Practitioner     | File path traversal, validation of start of path                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-validation-of-start-of-path)       |
 | Practitioner     | File path traversal, validation of file extension with null byte bypass                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Path%20Traversal.md#lab-file-path-traversal-validation-of-file-extension-with-null-byte-bypass)       |
+
+## Server-side Template Injection
+
+| **Difficulty**   | **Title**                                                                                             | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------------|--------------|
+| Practitioner     | Basic server-side template injection                                                                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-basic-server-side-template-injection)       |
+| Practitioner     | Basic server-side template injection (code context)                                                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-basic-server-side-template-injection-code-context)       |
+| Practitioner     | Server-side template injection using documentation                                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-server-side-template-injection-using-documentation)       |
+| Practitioner     | Server-side template injection in an unknown language with a documented exploit                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-server-side-template-injection-in-an-unknown-language-with-a-documented-exploit)       |
+| Practitioner     | Server-side template injection with information disclosure via user-supplied objects                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-server-side-template-injection-with-information-disclosure-via-user-supplied-objects)       |
+| Expert           | Server-side template injection in a sandboxed environment                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSTI.md#lab-server-side-template-injection-in-a-sandboxed-environment)       |
+| Expert           | Server-side template injection with a custom exploit                                                 | Not Solved   |
