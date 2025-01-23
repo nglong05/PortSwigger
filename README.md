@@ -51,7 +51,7 @@
 | Practitioner     | Cross-site WebSocket hijacking                                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/WebSockets.md#lab-cross-site-websocket-hijacking)       |
 | Practitioner     | Manipulating the WebSocket handshake to exploit vulnerabilities                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/WebSockets.md#lab-manipulating-the-websocket-handshake-to-exploit-vulnerabilities)       |
 
-## ## Access Control Vulnerabilities
+## Access Control Vulnerabilities
 
 | **Difficulty**   | **Title**                                                                                     | **Status**   |
 |------------------|-----------------------------------------------------------------------------------------------|--------------|
@@ -67,4 +67,14 @@
 | Practitioner     | URL-based access control can be circumvented                                                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Access%20Control%20Vulnerabilities.md#lab-url-based-access-control-can-be-circumvented)       |
 | Practitioner     | Method-based access control can be circumvented                                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Access%20Control%20Vulnerabilities.md#lab-method-based-access-control-can-be-circumvented)       |
 | Practitioner     | Multi-step process with no access control on one step                                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Access%20Control%20Vulnerabilities.md#lab-multi-step-process-with-no-access-control-on-one-step)       |
-| Practitioner     | Referer-based access control                                                                 | Not Solved   |
+| Practitioner     | Referer-based access control                                                                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Access%20Control%20Vulnerabilities.md#lab-referer-based-access-control)   |
+
+## Information Disclosure
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Information disclosure in error messages                                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-information-disclosure-in-error-messages)       |
+| Apprentice       | Information disclosure on debug page                                                         | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-information-disclosure-on-debug-page)       |
+| Apprentice       | Source code disclosure via backup files                                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-source-code-disclosure-via-backup-files)       |
+| Apprentice       | Authentication bypass via information disclosure                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-authentication-bypass-via-information-disclosure)       |
+| Practitioner     | Information disclosure in version control history                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-information-disclosure-in-version-control-history)       |
