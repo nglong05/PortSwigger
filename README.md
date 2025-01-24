@@ -78,3 +78,12 @@
 | Apprentice       | Source code disclosure via backup files                                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-source-code-disclosure-via-backup-files)       |
 | Apprentice       | Authentication bypass via information disclosure                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-authentication-bypass-via-information-disclosure)       |
 | Practitioner     | Information disclosure in version control history                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Information%20Disclosure.md#lab-information-disclosure-in-version-control-history)       |
+## OS Command Injection
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | OS command injection, simple case                                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-os-command-injection-simple-case)       |
+| Practitioner     | Blind OS command injection with time delays                                                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-time-delays)       |
+| Practitioner     | Blind OS command injection with output redirection                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-output-redirection)       |
+| Practitioner     | Blind OS command injection with out-of-band interaction                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-out-of-band-interaction)       |
+| Practitioner     | Blind OS command injection with out-of-band data exfiltration                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-out-of-band-data-exfiltration)       |
