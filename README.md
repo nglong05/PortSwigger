@@ -98,3 +98,15 @@
 | Practitioner     | Finding a hidden GraphQL endpoint                                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-finding-a-hidden-graphql-endpoint)       |
 | Practitioner     | Bypassing GraphQL brute force protections                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-bypassing-graphql-brute-force-protections)       |
 | Practitioner     | Performing CSRF exploits over GraphQL                                                        | Not Solved   |
+
+## File Upload Vulnerabilities
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Remote code execution via web shell upload                                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-remote-code-execution-via-web-shell-upload)       |
+| Apprentice       | Web shell upload via Content-Type restriction bypass                                         | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-content-type-restriction-bypass)       |
+| Practitioner     | Web shell upload via path traversal                                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-path-traversal)       |
+| Practitioner     | Web shell upload via extension blacklist bypass                                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-extension-blacklist-bypass)       |
+| Practitioner     | Web shell upload via obfuscated file extension                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-obfuscated-file-extension)       |
+| Practitioner     | Remote code execution via polyglot web shell upload                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-remote-code-execution-via-polyglot-web-shell-upload)       |
+| Expert           | Web shell upload via race condition                                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-race-condition)       |
