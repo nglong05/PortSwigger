@@ -87,3 +87,14 @@
 | Practitioner     | Blind OS command injection with output redirection                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-output-redirection)       |
 | Practitioner     | Blind OS command injection with out-of-band interaction                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-out-of-band-interaction)       |
 | Practitioner     | Blind OS command injection with out-of-band data exfiltration                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/OS%20Command%20Injection.md#lab-blind-os-command-injection-with-out-of-band-data-exfiltration)       |
+
+
+## GraphQL API Vulnerabilities
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Accessing private GraphQL posts                                                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-accessing-private-graphql-posts)       |
+| Practitioner     | Accidental exposure of private GraphQL fields                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-accidental-exposure-of-private-graphql-fields)       |
+| Practitioner     | Finding a hidden GraphQL endpoint                                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-finding-a-hidden-graphql-endpoint)       |
+| Practitioner     | Bypassing GraphQL brute force protections                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/GraphQL%20API%20Vulnerabilities.md#lab-bypassing-graphql-brute-force-protections)       |
+| Practitioner     | Performing CSRF exploits over GraphQL                                                        | Not Solved   |
