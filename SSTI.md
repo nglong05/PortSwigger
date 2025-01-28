@@ -39,7 +39,7 @@ However, sometimes this behavior is actually implemented intentionally. For exam
 ## Constructing a server-side template injection attack
 
 Identifying server-side template injection vulnerabilities and crafting a successful attack typically involves the following high-level process. 
-![alt text](image-7.png)
+![alt text](image/image-7.png)
 
 ### Detect
 
@@ -100,7 +100,7 @@ from -e:4:in `<main>'
 ```
 Otherwise, you'll need to manually test different language-specific payloads and study how they are interpreted by the template engine. Using a process of elimination based on which syntax appears to be valid or invalid, you can narrow down the options quicker than you might think. A common way of doing this is to inject arbitrary mathematical operations using syntax from different template engines. You can then observe whether they are successfully evaluated. To help with this process, you can use a decision tree similar to the following: 
 
-![alt text](image-8.png)
+![alt text](image/image-8.png)
 
 You should be aware that the same payload can sometimes return a successful response in more than one template language. For example, the payload `{{7*'7'}}` returns `49` in Twig and `7777777` in Jinja2. Therefore, it is important not to jump to conclusions based on a single successful response. 
 
@@ -118,7 +118,7 @@ Once you discover a server-side template injection vulnerability, and identify t
 
 Unless you already know the template engine inside out, reading its documentation is usually the first place to start. While this may not be the most exciting way to spend your time, it is important not to underestimate what a useful source of information the documentation can be. 
 
-![alt text](image-9.png)
+![alt text](image/image-9.png)
 
 **Learn the basic template syntax**
 

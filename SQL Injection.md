@@ -169,7 +169,7 @@ The lab will provide a random value that you need to make appear within the quer
 
 First, I used the payload `' UNION SELECT NULL, ..., NULL--` to determine the number of columns. After testing with four NULL values, the web  returned a 500 error, which means there are 3 columns.
 
-![alt text](image.png)
+![alt text](image/image.png)
 
 Next, to identify the data type of each column, I used the following payloads:
 
@@ -183,7 +183,7 @@ I noticed that with the second payload, the page displayed normally, which indic
 
 `'+union+select+null,'Uyu5qA',null--`
 
-![alt text](image-3.png)
+![alt text](image/image-3.png)
 
 ## Using a SQL injection UNION attack to retrieve interesting data
 
@@ -217,7 +217,7 @@ Finally, retrieve the usernames and passwords with this payload:
 
 `'+union+select+username,password+from+users--`
 
-![alt text](image-4.png)
+![alt text](image/image-4.png)
 
 ## Retrieving multiple values within a single column
 
@@ -245,7 +245,7 @@ For this challenge, the first columns is not of string type, so I could use the 
 
 `'+union+select+null,password||'~'||username+from+users--`
 
-![alt text](image-5.png)
+![alt text](image/image-5.png)
 
 ## Examining the database in SQL injection attacks
 
@@ -362,7 +362,7 @@ def find(pos):
                 return result
     return None
 ```
-![alt text](image-6.png)
+![alt text](image/image-6.png)
 
 ## Error-based SQL injection
 

