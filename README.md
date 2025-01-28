@@ -123,3 +123,12 @@
 | Practitioner     | JWT authentication bypass via kid header path traversal                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-kid-header-path-traversal)       |
 | Expert           | JWT authentication bypass via algorithm confusion                                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-algorithm-confusion)       |
 | Expert           | JWT authentication bypass via algorithm confusion with no exposed key                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/JWT.md#lab-jwt-authentication-bypass-via-algorithm-confusion-with-no-exposed-key)       |
+
+## NoSQL Injection
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Detecting NoSQL injection                                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/NoSQL%20Injection.md#lab-detecting-nosql-injection)       |
+| Apprentice       | Exploiting NoSQL operator injection to bypass authentication                                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/NoSQL%20Injection.md#lab-exploiting-nosql-operator-injection-to-bypass-authentication)       |
+| Practitioner     | Exploiting NoSQL injection to extract data                                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/NoSQL%20Injection.md#lab-exploiting-nosql-injection-to-extract-data)       |
+| Practitioner     | Exploiting NoSQL operator injection to extract unknown fields                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/NoSQL%20Injection.md#lab-exploiting-nosql-operator-injection-to-extract-unknown-fields)       |
