@@ -73,7 +73,7 @@ You can log in to your own account using the following credentials: wiener:peter
 
 For this challenge, modify the cookie session as follow
 
-![alt text](image-14.png)
+![alt text](image/image-14.png)
 ### Modifying data types
 
 PHP-based logic is particularly vulnerable to this kind of manipulation due to the behavior of its loose comparison operator (==) when comparing different data types. For example, if you perform a loose comparison between an integer and a string, PHP will attempt to convert the string to an integer, meaning that 5 == "5" evaluates to true.
@@ -101,7 +101,7 @@ You can log in to your own account using the following credentials: wiener:peter
 
 For this challenge, change the session as follow:
 
-![alt text](image-15.png)
+![alt text](image/image-15.png)
 ### Using application functionality
 
 As well as simply checking attribute values, a website's functionality might also perform dangerous operations on data from a deserialized object. In this case, you can use insecure deserialization to pass in unexpected data and leverage the related functionality to do damage.
@@ -117,7 +117,7 @@ You also have access to a backup account: gregg:rosebud
 
 For this challenge, modify the cookie as follow:
 
-![alt text](image-16.png)
+![alt text](image/image-16.png)
 ## Magic methods
 
 Magic methods are a special subset of methods that you do not have to explicitly invoke. Instead, they are invoked automatically whenever a particular event or scenario occurs. Magic methods are a common feature of object-oriented programming in various languages. They are sometimes indicated by prefixing or surrounding the method name with double-underscores.
