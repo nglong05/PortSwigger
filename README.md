@@ -147,3 +147,49 @@
 | Expert           | Developing a custom gadget chain for Java deserialization                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Insecure%20Deserialization.md#lab-developing-a-custom-gadget-chain-for-java-deserialization)       |
 | Expert           | Developing a custom gadget chain for PHP deserialization                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Insecure%20Deserialization.md#lab-developing-a-custom-gadget-chain-for-php-deserialization)       |
 | Expert           | Using PHAR deserialization to deploy a custom gadget chain                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Insecure%20Deserialization.md#lab-using-phar-deserialization-to-deploy-a-custom-gadget-chain)       |
+## Authentication
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Username enumeration via different responses                                                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-username-enumeration-via-different-responses)       |
+| Apprentice       | 2FA simple bypass                                                                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-2fa-simple-bypass)       |
+| Apprentice       | Password reset broken logic                                                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-password-reset-broken-logic)       |
+| Practitioner     | Username enumeration via subtly different responses                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-username-enumeration-via-subtly-different-responses)       |
+| Practitioner     | Username enumeration via response timing                                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-username-enumeration-via-response-timing)       |
+| Practitioner     | Broken brute-force protection, IP block                                                      | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-broken-brute-force-protection-ip-block)       |
+| Practitioner     | Username enumeration via account lock                                                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-username-enumeration-via-account-lock)       |
+| Practitioner     | 2FA broken logic                                                                             | Not solved       |
+| Practitioner     | Brute-forcing a stay-logged-in cookie                                                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-brute-forcing-a-stay-logged-in-cookie)       |
+| Practitioner     | Offline password cracking                                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-offline-password-cracking)       |
+| Practitioner     | Password reset poisoning via middleware                                                      | Not solved       |
+| Practitioner     | Password brute-force via password change                                                     | Not solved       |
+| Expert           | Broken brute-force protection, multiple credentials per request                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Authentication.md#lab-broken-brute-force-protection-multiple-credentials-per-request)       |
+| Expert           | 2FA bypass using a brute-force attack                                                        | Not solved       |
+
+## Business Logic Vulnerabilities
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Excessive trust in client-side controls                                                       | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-excessive-trust-in-client-side-controls) |
+| Apprentice       | High-level logic vulnerability                                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-high-level-logic-vulnerability) |
+| Apprentice       | Inconsistent security controls                                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-inconsistent-security-controls) |
+| Apprentice       | Flawed enforcement of business rules                                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-flawed-enforcement-of-business-rules) |
+| Practitioner     | Low-level logic flaw                                                                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-low-level-logic-flaw) |
+| Practitioner     | Inconsistent handling of exceptional input                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-inconsistent-handling-of-exceptional-input) |
+| Practitioner     | Weak isolation on dual-use endpoint                                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-weak-isolation-on-dual-use-endpoint) |
+| Practitioner     | Insufficient workflow validation                                                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-insufficient-workflow-validation) |
+| Practitioner     | Authentication bypass via flawed state machine                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Business%20Logic%20Vulnerabilities.md#lab-authentication-bypass-via-flawed-state-machine) |
+| Practitioner     | Infinite money logic flaw                                                                     | Not solved |
+| Practitioner     | Authentication bypass via encryption oracle                                                   | Not solved |
+| Expert           | Bypassing access controls using email address parsing discrepancies                           | Not solved |
+
+## Race Conditions
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Limit overrun race conditions                                                                 | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-limit-overrun-race-conditions) |
+| Practitioner     | Bypassing rate limits via race conditions                                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-bypassing-rate-limits-via-race-conditions) |
+| Practitioner     | Multi-endpoint race conditions                                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-multi-endpoint-race-conditions) |
+| Practitioner     | Single-endpoint race conditions                                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-single-endpoint-race-conditions) |
+| Practitioner     | Exploiting time-sensitive vulnerabilities                                                     | Not solved |
+| Expert           | Partial construction race conditions                                                          | Not solved |

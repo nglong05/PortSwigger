@@ -115,3 +115,72 @@ A variation of this vulnerability can occur when payment validation and order co
 ![alt text](image-12.png)
 
 In this case, you can potentially add more items to your basket during the race window between when the payment is validated and when the order is finally confirmed.
+
+### Connection warming
+
+Back-end connection delays don't usually interfere with race condition attacks because they typically delay parallel requests equally, so the requests stay in sync.
+
+It's essential to be able to distinguish these delays from those caused by endpoint-specific factors. One way to do this is by "warming" the connection with one or more inconsequential requests to see if this smoothes out the remaining processing times. In Burp Repeater, you can try adding a GET request for the homepage to the start of your tab group, then using the Send group in sequence (single connection) option.
+
+If the first request still has a longer processing time, but the rest of the requests are now processed within a short window, you can ignore the apparent delay and continue testing as normal.
+
+If you still see inconsistent response times on a single endpoint, even when using the single-packet technique, this is an indication that the back-end delay is interfering with your attack. You may be able to work around this by using Turbo Intruder to send some connection warming requests before following up with your main attack requests.
+
+### Lab: Multi-endpoint race conditions
+
+This lab's purchasing flow contains a race condition that enables you to purchase items for an unintended price.
+
+To solve the lab, successfully purchase a Lightweight L33t Leather Jacket.
+
+You can log into your account with the following credentials: wiener:peter. 
+
+**Overview**:
+
+- The website let user put an item in cart in `POST /cart` with the data, for example `productId=2&redir=PRODUCT&quantity=1`
+
+- The user purchase the item in the cart in `POST /cart/checkout`, which request's have the session which have the user's cart
+
+To solve the lab, first have a item that the given accout can purchase, then send 3 request in parallel
+- `GET /` this is to warm the connection
+- `POST /cart`, add the Lightweight L33t Leather Jacket, with the data `productId=1&redir=PRODUCT&quantity=1`
+- `POST /cart/checkout`, to purchase the previous item, which will also purchase the item we just put with the race condition
+
+By sending these requests in parallel, the checkout process might process the cart contents before the addition of the jacket is fully registered, effectively purchasing the jacket at the price of the cheaper item.
+
+## Single-endpoint race conditions
+
+Sending parallel requests with different values to a single endpoint can sometimes trigger powerful race conditions.
+
+>For this attack to work, the different operations performed by each process must occur in just the right order. It would likely require multiple attempts, or a bit of luck, to achieve the desired outcome.
+
+Email address confirmations, or any email-based operations, are generally a good target for single-endpoint race conditions. Emails are often sent in a background thread after the server issues the HTTP response to the client, making race conditions more likely. 
+
+### Lab: Single-endpoint race conditions
+
+This lab's email change feature contains a race condition that enables you to associate an arbitrary email address with your account.
+
+Someone with the address carlos@ginandjuice.shop has a pending invite to be an administrator for the site, but they have not yet created an account. Therefore, any user who successfully claims this address will automatically inherit admin privileges.
+
+To solve the lab:
+
+-    Identify a race condition that lets you claim an arbitrary email address.
+-    Change your email address to carlos@ginandjuice.shop.
+-    Access the admin panel.
+-    Delete the user carlos
+
+You can log in to your own account with the following credentials: wiener:peter.
+
+You also have access to an email client, where you can view all emails sent to `@exploit-<YOUR-EXPLOIT-SERVER-ID>.exploit-server.net` addresses. 
+
+For this challenge, send 2 request in parallel to solve the lab
+```
+POST /my-account/change-email
+
+email=wiener@exploit-ID.exploit-server.net&csrf=....
+```
+```
+POST /my-account/change-email
+
+email=carlos@ginandjuice.shop&csrf=...
+```
+
