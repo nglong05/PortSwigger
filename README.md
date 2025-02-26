@@ -191,5 +191,87 @@
 | Practitioner     | Bypassing rate limits via race conditions                                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-bypassing-rate-limits-via-race-conditions) |
 | Practitioner     | Multi-endpoint race conditions                                                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-multi-endpoint-race-conditions) |
 | Practitioner     | Single-endpoint race conditions                                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-single-endpoint-race-conditions) |
-| Practitioner     | Exploiting time-sensitive vulnerabilities                                                     | Not solved |
+| Practitioner     | Exploiting time-sensitive vulnerabilities                                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Race%20Conditions.md#lab-exploiting-time-sensitive-vulnerabilities) |
 | Expert           | Partial construction race conditions                                                          | Not solved |
+
+## Server-side request forgery (SSRF)
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Basic SSRF against the local server                                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-basic-ssrf-against-the-local-server) |
+| Apprentice       | Basic SSRF against another back-end system                                                    | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-basic-ssrf-against-another-back-end-system) |
+| Practitioner     | Blind SSRF with out-of-band detection                                                         | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-blind-ssrf-with-out-of-band-detection) |
+| Practitioner     | SSRF with blacklist-based input filter                                                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-ssrf-with-blacklist-based-input-filter) |
+| Practitioner     | SSRF with filter bypass via open redirection vulnerability                                    | Not solved |
+| Expert           | Blind SSRF with Shellshock exploitation                                                       | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-blind-ssrf-with-shellshock-exploitation) |
+| Expert           | SSRF with whitelist-based input filter                                                        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/SSRF.md#lab-ssrf-with-whitelist-based-input-filter) |
+
+## API Testing
+
+| **Difficulty**   | **Title**                                                                                     | **Status**   |
+|------------------|-----------------------------------------------------------------------------------------------|--------------|
+| Apprentice       | Exploiting an API endpoint using documentation | [Solved](https://github.com/nglong05/PortSwigger/blob/main/API%20Testing.md#lab-exploiting-an-api-endpoint-using-documentation) |
+| Practitioner     | Exploiting server-side parameter pollution in a query string | [Solved](https://github.com/nglong05/PortSwigger/blob/main/API%20Testing.md#lab-exploiting-server-side-parameter-pollution-in-a-query-string) |
+| Practitioner     | Finding and exploiting an unused API endpoint | [Solved](https://github.com/nglong05/PortSwigger/blob/main/API%20Testing.md#lab-finding-and-exploiting-an-unused-api-endpoint) |
+| Practitioner     | Exploiting a mass assignment vulnerability | [Solved](https://github.com/nglong05/PortSwigger/blob/main/API%20Testing.md#lab-exploiting-a-mass-assignment-vulnerability) |
+| Expert          | Exploiting server-side parameter pollution in a REST URL | [Solved](https://github.com/nglong05/PortSwigger/blob/main/API%20Testing.md#lab-exploiting-server-side-parameter-pollution-in-a-rest-url) |
+
+## Cross-Origin Resource Sharing (CORS)
+
+| **Difficulty**   | **Title**                                                  | **Status**   |
+|------------------|------------------------------------------------------------|--------------|
+| Apprentice       | CORS vulnerability with basic origin reflection | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CORS.md#lab-cors-vulnerability-with-basic-origin-reflection) |
+| Apprentice       | CORS vulnerability with trusted null origin | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CORS.md#lab-cors-vulnerability-with-trusted-null-origin) |
+| Practitioner     | CORS vulnerability with trusted insecure protocols | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CORS.md#lab-cors-vulnerability-with-trusted-insecure-protocols) |
+
+## XML External Entity (XXE) Injection
+
+| **Difficulty**   | **Title**                                                                 | **Status**   |
+|------------------|---------------------------------------------------------------------------|--------------|
+| Apprentice       | Exploiting XXE using external entities to retrieve files                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-xxe-using-external-entities-to-retrieve-files) |
+| Apprentice       | Exploiting XXE to perform SSRF attacks                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-xxe-to-perform-ssrf-attacks) |
+| Practitioner     | Blind XXE with out-of-band interaction                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-blind-xxe-with-out-of-band-interaction) |
+| Practitioner     | Blind XXE with out-of-band interaction via XML parameter entities       | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-blind-xxe-with-out-of-band-interaction-via-xml-parameter-entities) |
+| Practitioner     | Exploiting blind XXE to exfiltrate data using a malicious external DTD  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-blind-xxe-to-exfiltrate-data-using-a-malicious-external-dtd) |
+| Practitioner     | Exploiting blind XXE to retrieve data via error messages               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-blind-xxe-to-retrieve-data-via-error-messages) |
+| Practitioner     | Exploiting XInclude to retrieve files                                  | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-xinclude-to-retrieve-files) |
+| Practitioner     | Exploiting XXE via image file upload                                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-xxe-via-image-file-upload) |
+| Expert          | Exploiting XXE to retrieve data by repurposing a local DTD             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/XXE.md#lab-exploiting-xxe-to-retrieve-data-by-repurposing-a-local-dtd) |
+
+## DOM-Based Vulnerabilities
+
+| **Difficulty**   | **Title**                                                                 | **Status**   |
+|------------------|---------------------------------------------------------------------------|--------------|
+| Practitioner     | DOM XSS using web messages                                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/DOM_XSS.md#lab-dom-xss-using-web-messages) |
+| Practitioner     | DOM XSS using web messages and a JavaScript URL                         | [Solved](https://github.com/nglong05/PortSwigger/blob/main/DOM_XSS.md#lab-dom-xss-using-web-messages-and-a-javascript-url) |
+| Practitioner     | DOM XSS using web messages and JSON.parse                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/DOM_XSS.md#lab-dom-xss-using-web-messages-and-jsonparse) |
+| Practitioner     | DOM-based open redirection                                              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/DOM_XSS.md#lab-dom-based-open-redirection) |
+| Practitioner     | DOM-based cookie manipulation                                           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/DOM_XSS.md#lab-dom-based-cookie-manipulation) |
+| Expert          | Exploiting DOM clobbering to enable XSS                                  | Not solved |
+| Expert          | Clobbering DOM attributes to bypass HTML filters                        | Not solved |
+
+## Cross-Site Request Forgery (CSRF)
+
+| **Difficulty**   | **Title**                                                               | **Status**   |
+|------------------|-------------------------------------------------------------------------|--------------|
+| Apprentice      | CSRF vulnerability with no defenses                                     | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-vulnerability-with-no-defenses) |
+| Practitioner    | CSRF where token validation depends on request method                   | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-where-token-validation-depends-on-request-method) |
+| Practitioner    | CSRF where token validation depends on token being present              | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-where-token-validation-depends-on-token-being-present) |
+| Practitioner    | CSRF where token is not tied to user session                            | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-where-token-is-not-tied-to-user-session) |
+| Practitioner    | CSRF where token is tied to non-session cookie                          | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-where-token-is-tied-to-non-session-cookie) |
+| Practitioner    | CSRF where token is duplicated in cookie                               | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-csrf-where-token-is-duplicated-in-cookie) |
+| Practitioner    | SameSite Lax bypass via method override                                | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-samesite-lax-bypass-via-method-override) |
+| Practitioner    | SameSite Strict bypass via client-side redirect                       | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-samesite-strict-bypass-via-client-side-redirect) |
+| Practitioner    | SameSite Strict bypass via sibling domain                             | [Solved](https://github.com/nglong05/PortSwigger/blob/main/CSRF.md#lab-samesite-strict-bypass-via-sibling-domain) |
+| Practitioner    | SameSite Lax bypass via cookie refresh                                | Not solved |
+| Practitioner    | CSRF where Referer validation depends on header being present         | Not solved |
+| Practitioner    | CSRF with broken Referer validation                                   | Not solved |
+
+## Web LLM Attacks
+
+| **Difficulty**   | **Title**                                         | **Status**   |
+|------------------|--------------------------------------------------|--------------|
+| Apprentice      | Exploiting LLM APIs with excessive agency        | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Web_LLM_Attacks.md#lab-exploiting-llm-apis-with-excessive-agency) |
+| Practitioner    | Exploiting vulnerabilities in LLM APIs           | [Solved](https://github.com/nglong05/PortSwigger/blob/main/Web_LLM_Attacks.md#lab-exploiting-vulnerabilities-in-llm-apis) |
+| Practitioner    | Indirect prompt injection                        | Not solved |
+| Expert         | Exploiting insecure output handling in LLMs       | Not solved |

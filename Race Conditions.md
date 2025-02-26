@@ -184,3 +184,49 @@ POST /my-account/change-email
 email=carlos@ginandjuice.shop&csrf=...
 ```
 
+## Session-based locking mechanisms
+
+Some frameworks attempt to prevent accidental data corruption by using some form of request locking. For example, PHP's native session handler module only processes one request per session at a time.
+
+It's extremely important to spot this kind of behavior as it can otherwise mask trivially exploitable vulnerabilities. If you notice that all of your requests are being processed sequentially, try sending each of them using a different session token.
+
+## Time-sensitive attacks
+
+Sometimes you may not find race conditions, but the techniques for delivering requests with precise timing can still reveal the presence of other vulnerabilities.
+
+One such example is when high-resolution timestamps are used instead of cryptographically secure random strings to generate security tokens.
+
+Consider a password reset token that is only randomized using a timestamp. In this case, it might be possible to trigger two password resets for two different users, which both use the same token. All you need to do is time the requests so that they generate the same timestamp.
+
+### Lab: Exploiting time-sensitive vulnerabilities
+
+This lab contains a password reset mechanism. Although it doesn't contain a race condition, you can exploit the mechanism's broken cryptography by sending carefully timed requests.
+
+To solve the lab:
+
+-    Identify the vulnerability in the way the website generates password reset tokens.
+-    Obtain a valid password reset token for the user carlos.
+-    Log in as carlos.
+-    Access the admin panel and delete the user carlos.
+
+You can log into your account with the following credentials: wiener:peter. 
+
+Notice that the session cookie suggests that the website uses a PHP back-end. This could mean that the server only processes one request at a time per session.
+
+To bypass this, we need the session cookie and CSRF token and use them to replace the values in one of the two `POST /forgot-password` requests for race condition
+- Send the `GET /forgot-password` request to Burp Repeater 
+- Remove the session cookie from the request, then send it.
+- Get the new session cookie and csrf token
+
+Send the two POST requests in parallel and observe that the processing times are now much more closely aligned.
+
+Now, change one of the request param to carlos and send in parallel, both users should be assigned the same reset token, although you won't be able to see this.
+
+Visit the URL from the browser and change the username to carlos to change the password.
+
+### Lab: Partial construction race conditions
+
+This lab contains a user registration mechanism. A race condition enables you to bypass email verification and register with an arbitrary email address that you do not own.
+
+To solve the lab, exploit this race condition to create an account, then log in and delete the user carlos. 
+
